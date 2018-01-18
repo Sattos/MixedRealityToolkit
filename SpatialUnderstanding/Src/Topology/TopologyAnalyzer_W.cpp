@@ -2222,6 +2222,44 @@ Bool TopologyAnalyzer_W::RectangleIsOkOnFloor(const Vec3f& _topLeft, const Vec3f
 
 //-----------------------------------
 
+Bool TopologyAnalyzer_W::RectangleIsOk(const Vec3f& _topLeft, const Vec3f& _topRight, const Vec3f& _bottomLeft, const Vec3f& _bottomRight, U32 _request, U32 _limit /*= 0*/, U32 _surfaceType) const
+{
+	switch (_surfaceType)
+	{
+	case 2:
+		for (S32 i = 0; i < m_daSurfaces.GetSize(); ++i)
+		{
+			if (m_daSurfaces[i].m_bIsGround && RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daSurfaces[i], m_fSizeVoxel, _request, _limit))
+				return TRUE;
+		}
+		break;
+	case 3:
+	case 4:
+		for (S32 i = 0; i < m_daSurfaces.GetSize(); ++i)
+		{
+			if (!m_daSurfaces[i].m_bIsGround && RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daSurfaces[i], m_fSizeVoxel, _request, _limit))
+				return TRUE;
+		}
+		break;
+	case 5:	//TODO WALLS
+		//for (S32 i = 0; i < m_daWalls.GetSize(); ++i)
+		{
+			//if (m_daWalls[i] && RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daWalls[i], m_fSizeVoxel, _request, _limit))
+				//return TRUE;
+		}
+		break;
+	case 6:
+		break;
+	default:
+		break;
+	}
+	
+
+	return FALSE;
+}
+
+//-----------------------------------
+
 void	TopologyAnalyzer_W::GetAllPosOnWall(Float _heightMin, Float _heightSizeMin, Float _widthMin, Float _fDepth, Vec3fDA& _outPos, Vec3fDA& _outNormal, Bool _bAllowVirtualWall)
 {
 	S32 iDepth = FLOORINT(_fDepth / m_fSizeVoxel);

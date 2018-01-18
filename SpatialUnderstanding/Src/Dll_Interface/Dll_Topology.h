@@ -50,6 +50,15 @@ namespace Dll_Interface
 		_In_ float minFacingClearance,
 		_In_ int locationCount,
 		_Inout_ TopologyResult* locationData);
+
+	EXTERN_C __declspec(dllexport) bool QueryTopology_IsValidRect(
+		_In_ Vec3f topLeft,
+		_In_ Vec3f topRight,
+		_In_ Vec3f bottomLeft,
+		_In_ Vec3f bottomRight,
+		_In_ int requestType,
+		_In_ int surfaceType,
+		_Inout_ TopologyResult* locationData);
 }
 
 #endif

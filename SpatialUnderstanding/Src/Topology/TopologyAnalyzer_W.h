@@ -358,6 +358,7 @@ public :
 	static Bool				RectangleIsOk(const Vec3f& _topLeft, const Vec3f& _topRight, const Vec3f& _bottomLeft, const Vec3f& _bottomRight, const Surface& _surface, Float _fSizeVoxel, U32 _request, U32 _limit = 0);
 
 		   Bool				RectangleIsOkOnFloor(const Vec3f& _topLeft, const Vec3f& _topRight, const Vec3f& _bottomLeft, const Vec3f& _bottomRight, U32 _request, U32 _limit = 0) const;
+		   Bool				RectangleIsOk(const Vec3f & _topLeft, const Vec3f & _topRight, const Vec3f & _bottomLeft, const Vec3f & _bottomRight, U32 _request, U32 _limit, U32 _surfaceType) const;
 };
 
 #endif

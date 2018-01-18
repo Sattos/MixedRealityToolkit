@@ -251,16 +251,28 @@ EXTERN_C __declspec(dllexport) int QueryTopology_FindPositionsSittable(
 }
 
 EXTERN_C __declspec(dllexport) int QueryTopology_FindLargePositionsSittable(
-  _In_ float minHeight,
-  _In_ float maxHeight,
-  _In_ float minFacingClearance,
-  _In_ float minWidth,
-  _In_ int locationCount,
-  _Inout_ Dll_Interface::TopologyResult* locationData)
+	_In_ float minHeight,
+	_In_ float maxHeight,
+	_In_ float minFacingClearance,
+	_In_ float minWidth,
+	_In_ int locationCount,
+	_Inout_ Dll_Interface::TopologyResult* locationData)
 {
-  Vec3fDA outPos, outNormal;
-  UnderstandingMgr_W::GetUnderstandingMgr().GetPlayspaceInfos().m_TopologyAnalyzer.GetAllLargePosSittable(minHeight, maxHeight, minFacingClearance, minWidth, outPos, outNormal);
+	Vec3fDA outPos, outNormal;
+	UnderstandingMgr_W::GetUnderstandingMgr().GetPlayspaceInfos().m_TopologyAnalyzer.GetAllLargePosSittable(minHeight, maxHeight, minFacingClearance, minWidth, outPos, outNormal);
 
-  return OutputLocations(locationCount, locationData, outPos, outNormal, 0.0f);
+	return OutputLocations(locationCount, locationData, outPos, outNormal, 0.0f);
+}
+
+EXTERN_C __declspec(dllexport) Bool QueryTopology_IsValidRect(
+	_In_ Vec3f topLeft,
+	_In_ Vec3f topRight,
+	_In_ Vec3f bottomLeft,
+	_In_ Vec3f bottomRight,
+	_In_ int requestType,
+	_In_ int surfaceType,
+	_Inout_ Dll_Interface::TopologyResult* locationData)
+{
+	return UnderstandingMgr_W::GetUnderstandingMgr().GetPlayspaceInfos().m_TopologyAnalyzer.RectangleIsOk(topLeft, topRight, bottomLeft, bottomRight, requestType, 0, surfaceType);
 }
 
