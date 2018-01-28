@@ -2241,14 +2241,20 @@ Bool TopologyAnalyzer_W::RectangleIsOk(const Vec3f& _topLeft, const Vec3f& _topR
 				return TRUE;
 		}
 		break;
-	case 5:	//TODO WALLS
-		//for (S32 i = 0; i < m_daWalls.GetSize(); ++i)
+	case 5:
+		for (S32 i = 0; i < m_daSurfaces.GetSize(); ++i)
 		{
-			//if (m_daWalls[i] && RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daWalls[i], m_fSizeVoxel, _request, _limit))
-				//return TRUE;
+			if (m_daSurfaces[i].m_bIsCeiling && RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daSurfaces[i], m_fSizeVoxel, _request, _limit))
+				return TRUE;
 		}
 		break;
 	case 6:
+	case 7:
+		for (S32 i = 0; i < m_daSurfaces.GetSize(); ++i)
+		{
+			if (RectangleIsOk(_topLeft, _topRight, _bottomLeft, _bottomRight, m_daSurfaces[i], m_fSizeVoxel, _request, _limit))
+				return TRUE;
+		}
 		break;
 	default:
 		break;
